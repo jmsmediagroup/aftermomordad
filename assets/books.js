@@ -30,6 +30,9 @@ const BOOKS = [
   { n: 6, word: "Six", title: "Your Surviving Parent", url: "/books/your-surviving-parent/",
     when: "Months 3 to 24", line: "When the other parent is now alone.",
     amazon: "", paperback: "", hardcover: "" },
+  { n: 7, word: "Seven", title: "The Second Parent", url: "/books/the-second-parent/",
+    when: "After the second death", line: "When the other parent dies too: the last estate, and the family after.",
+    amazon: "", paperback: "", hardcover: "" },
 ];
 
 /* "How long has it been?": the first book is "start here". */
