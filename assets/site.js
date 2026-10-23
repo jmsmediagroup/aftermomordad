@@ -1,0 +1,66 @@
+/* aftermomordad.com: buy buttons, the "how long has it been?" picker, and measurement. */
+(function () {
+  var books = (typeof BOOKS !== "undefined") ? BOOKS : [];
+  function track(kind) {
+    if (typeof gtag !== "function") return;
+    gtag("event", kind === "amazon" ? "click_amazon" : kind === "download" ? "checklist_download" : "sign_up");
+    var label = window.SITE_LABELS && window.SITE_LABELS[kind];
+    if (window.SITE_ADS && label) gtag("event", "conversion", { send_to: window.SITE_ADS + "/" + label });
+  }
+
+  function formats(b) {
+    var f = [["Kindle", b.amazon], ["Paperback", b.paperback], ["Hardcover", b.hardcover]].filter(function (x) { return x[1]; });
+    if (f.length < 2) return '<p class="fine">Kindle, paperback and hardcover.</p>';
+    return '<p class="fine formats">Also as: ' + f.map(function (x) {
+      return '<a href="' + x[1] + '" rel="noopener" data-track="amazon">' + x[0] + '</a>'; }).join(' · ') + '</p>';
+  }
+
+  // Buy buttons: Amazon when the link is in books.js, otherwise "tell me".
+  document.querySelectorAll("[data-buy]").forEach(function (el) {
+    var b = books[+el.dataset.buy - 1]; if (!b) return;
+    var big = el.dataset.big === "1" ? " big" : "";
+    var title = b.title.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    if (b.amazon) {
+      el.innerHTML = '<a class="btn' + big + '" href="' + b.amazon + '" rel="noopener" data-track="amazon">Buy ' +
+        title + ' on Amazon</a>' + formats(b);
+    } else {
+      el.innerHTML = '<a class="btn' + big + '" href="#notify">Tell me when it’s out</a>' +
+        '<p class="fine">' + title + ' is not out yet. Leave your email below for a note when it is.</p>';
+    }
+  });
+
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest && ev.target.closest("[data-track]");
+    if (a) track(a.dataset.track);
+  });
+  if (window.SITE_THANKS) track("signup");
+
+  // "How long has it been?"
+  var advice = document.getElementById("advice");
+  var buttons = document.querySelectorAll(".when button");
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      buttons.forEach(function (x) { x.setAttribute("aria-pressed", String(x === btn)); });
+      var w = WHEN[+btn.dataset.when];
+      document.querySelectorAll(".card").forEach(function (c) { c.classList.remove("is-start", "is-also"); });
+      var s = document.getElementById("book-" + w.start); if (s) s.classList.add("is-start");
+      w.also.forEach(function (n) { var c = document.getElementById("book-" + n); if (c) c.classList.add("is-also"); });
+      var t = function (n) { return books[n - 1].title + " (Book " + n + ")"; };
+      advice.innerHTML = "";
+      advice.appendChild(document.createTextNode("Start with "));
+      var link = document.createElement("a"); link.href = books[w.start - 1].url; link.textContent = t(w.start);
+      advice.appendChild(link);
+      advice.appendChild(document.createTextNode(". " + (w.also.length ? "After that, " + w.also.map(t).join(" and ") + " may help." : "")));
+      advice.hidden = false;
+      if (s) s.scrollIntoView({ block: "nearest" });
+    });
+  });
+
+  // Arriving at a book page with #ch-N: open that chapter's answer.
+  var ch = location.hash.match(/^#ch-(\d+)$/);
+  if (ch) { var d = document.getElementById("ch-" + ch[1]); if (d) { d.open = true; d.scrollIntoView(); } }
+
+  // Arriving at /books/#book-N: mark that book.
+  var m = location.hash.match(/^#book-(\d)$/);
+  if (m) { var c = document.getElementById("book-" + m[1]); if (c) c.classList.add("is-next"); }
+})();
