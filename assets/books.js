@@ -19,7 +19,7 @@ const BOOKS = [
     when: "Months 1 to 9", line: "Executor or administrator duties, with or without a will.",
     amazon: "", paperback: "", hardcover: "" },
   { n: 3, word: "Three", title: "Their Money", url: "/books/their-money/",
-    when: "Months 1 to 12", line: "Benefits, accounts, taxes, debts.",
+    when: "Months 1 to 12", line: "Benefits, accounts, taxes.",
     amazon: "", paperback: "", hardcover: "" },
   { n: 4, word: "Four", title: "Their House", url: "/books/their-house/",
     when: "Months 3 to 15", line: "Stay or sell, and clearing a life.",
