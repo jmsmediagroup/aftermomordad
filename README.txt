@@ -15,10 +15,11 @@ HOW IT IS MADE
 
 PAGES (pre-launch)
   /                  what the series is, "How long has it been?", the six books
-  /books/            the six books, with the same picker
+  /books/            the seven books, with the same picker
   /books/<title>/    one page per book: in preparation, sign-up, the books
                      before and after it
-  /start/            the free checklist: sign up to get it when it is ready
+  /start/            the free checklist (PDF in assets/, from 00_templates/04_lead-magnet)
+  /questions/        every chapter question; one page per chapter under /books/<book>/
   /about/ /help-tonight/ /contact/ /privacy/ /terms/
   /thanks/           shown after a sign-up (noindex)
   /1/ ... /6/        short links to be printed (with QR codes) in the books.
