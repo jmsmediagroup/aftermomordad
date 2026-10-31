@@ -4,11 +4,19 @@
 <title>After Mom or Dad: Book 2</title>
 <meta name="robots" content="noindex">
 <noscript><meta http-equiv="refresh" content="0; url=/books/being-in-charge/"></noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TZQRJW1J66"></script>
 <script src="/assets/books.js"></script>
 <script>
   /* Printed in the books as aftermomordad.com/2. Goes to Amazon once Book 2's link
      is in /assets/books.js; until then, to the book's page on this site. */
   var b = (typeof BOOKS !== "undefined") && BOOKS[1];
-  location.replace(b && b.amazon ? b.amazon : "/books/being-in-charge/");
+  var dest = b && b.amazon ? b.amazon : "/books/being-in-charge/", gone = false;
+  function go() { if (!gone) { gone = true; location.replace(dest); } }
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-TZQRJW1J66', { send_page_view: false });
+  gtag('event', 'short_link_open', { link: 'book-2', transport_type: 'beacon', event_callback: go, event_timeout: 700 });
+  setTimeout(go, 900);
 </script>
 </head><body><p><a href="/books/being-in-charge/">Continue to Book 2</a></p></body></html>

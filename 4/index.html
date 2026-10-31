@@ -4,11 +4,19 @@
 <title>After Mom or Dad: Book 4</title>
 <meta name="robots" content="noindex">
 <noscript><meta http-equiv="refresh" content="0; url=/books/their-house/"></noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TZQRJW1J66"></script>
 <script src="/assets/books.js"></script>
 <script>
   /* Printed in the books as aftermomordad.com/4. Goes to Amazon once Book 4's link
      is in /assets/books.js; until then, to the book's page on this site. */
   var b = (typeof BOOKS !== "undefined") && BOOKS[3];
-  location.replace(b && b.amazon ? b.amazon : "/books/their-house/");
+  var dest = b && b.amazon ? b.amazon : "/books/their-house/", gone = false;
+  function go() { if (!gone) { gone = true; location.replace(dest); } }
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-TZQRJW1J66', { send_page_view: false });
+  gtag('event', 'short_link_open', { link: 'book-4', transport_type: 'beacon', event_callback: go, event_timeout: 700 });
+  setTimeout(go, 900);
 </script>
 </head><body><p><a href="/books/their-house/">Continue to Book 4</a></p></body></html>
